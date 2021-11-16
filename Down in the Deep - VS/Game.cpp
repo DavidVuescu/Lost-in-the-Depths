@@ -38,8 +38,6 @@ void Game::update() // Function used for frame updating
 }
 void Game::render() // Function used for drawing
 {
-	ClearBackground(RAYWHITE);
 
-	DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
 }
 
