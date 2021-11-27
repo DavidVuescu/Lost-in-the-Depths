@@ -145,11 +145,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="daveLib.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Room.cpp" />
+    <ClCompile Include="Scenes.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="daveLib.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Room.h" />
+    <ClInclude Include="Scenes.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>

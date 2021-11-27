@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <string>
+#include "Scenes.h"
 
 class Game
 {
@@ -15,6 +16,8 @@ class Game
 		bool shouldGameClose() const;
 
 		void tick();
+
+		Scenes roomMap;
 
 	private:
 

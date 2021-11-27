@@ -10,13 +10,12 @@ int main(void)
     Game game{ settings::gameWidth,
             settings::gameHeight,
             settings::targetFPS,
-            "Down in the Deep PreAplha 1.3"};
+            "Down in the Deep PreAplha 1.6"};
 
     while (!game.shouldGameClose())
     {
         game.tick();
     }
     
-
     return 0;
 }

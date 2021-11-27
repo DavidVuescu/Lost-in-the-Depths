@@ -1,20 +1,21 @@
 #include <assert.h>
 #include <raylib.h>
 #include "Game.h"
+#include "Room.h"
 #include "Settings.h"
 
 Game::Game(int width, int height, int FPS, std::string title)
 {
-	assert(!GetWindowHandle()); // If assertio triggers : Game window already open
+	assert(!GetWindowHandle()); // If assertion triggers : Game window already open
 
 	SetTargetFPS(FPS);
 	InitWindow(width, height, title.c_str());
-
+	roomMap.initRooms();
 }
 
 Game::~Game() noexcept
 {
-	assert(GetWindowHandle()); // If assertio triggers : Game window already closed
+	assert(GetWindowHandle()); // If assertion triggers : Game window already closed
 	CloseWindow();
 }
 
@@ -38,6 +39,5 @@ void Game::update() // Function used for frame updating
 }
 void Game::render() // Function used for drawing
 {
-
+	roomMap.roomIndex[1].drawRoom();
 }
-
