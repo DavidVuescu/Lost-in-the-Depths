@@ -40,10 +40,6 @@ Room::Room(Room&& other) noexcept
 		
 {}
 
-int Room::getID()
-{
-	return roomID;
-}
 
 void Room::drawRoom()
 {
@@ -79,6 +75,30 @@ void Room::drawRoom()
 						settings::subjectPos, 
 						RAYWHITE);
 
+
+}
+
+void Room::drawRoomText()
+{
+	std::string writeBuffer;
+	int initialDrawPosY = settings::textPosY;
+	for (std::string::iterator it = roomText.begin(); it!=roomText.end(); ++it)
+	{
+		writeBuffer.push_back(*it);
+		if (*it == ' ')
+		{
+			if ( MeasureText(writeBuffer.c_str(), settings::fontSize) >= settings::writerDangerZone )
+			{
+				DrawText(writeBuffer.c_str(), 
+							settings::textPosX, 
+							initialDrawPosY, 
+							settings::fontSize, 
+							RAYWHITE);
+				initialDrawPosY += 20;
+				writeBuffer.clear();
+			}
+		}
+	}
 }
 
 

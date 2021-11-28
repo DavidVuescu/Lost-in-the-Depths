@@ -30,6 +30,7 @@ public:
 	int getID();
 
 	void drawRoom();// Function for drawing room elements
+	void drawRoomText();// Function for drawing room text
 
 
 	bool operator < (const Room& rhs) const;

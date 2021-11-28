@@ -39,5 +39,6 @@ void Game::update() // Function used for frame updating
 }
 void Game::render() // Function used for drawing
 {
-	roomMap.roomIndex[1].drawRoom();
+	roomMap.roomIndex[2].drawRoom();
+	roomMap.roomIndex[2].drawRoomText();
 }

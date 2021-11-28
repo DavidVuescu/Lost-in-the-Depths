@@ -33,6 +33,11 @@ namespace settings
 	inline constexpr Vec2<int> subjectPos { 700,30 };
 
 
+	// Text Writer Settings
+	inline constexpr int fontSize = 18;
+	inline constexpr int writerDangerZone = 350;//Where the writer should stop and begin a newline
+	inline constexpr int textPosX = 55;
+	inline constexpr int textPosY = 70;
 }
 
 #endif
