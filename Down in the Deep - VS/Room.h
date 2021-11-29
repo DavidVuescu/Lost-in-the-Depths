@@ -14,23 +14,25 @@ class Room
 	Texture2D roomSubject;
 	Texture2D roomBackground;
 
-	int roomChoiceNo;
+	const int roomChoiceNo;
 	std::list <std::string> choiceList;
 
 public:
 	Room(int roomID, const std::string& roomText,
 		 const std::string& subjectPath, const std::string& backgroundPath,
-		 int choiceNo, const std::list <std::string>& choiceList);
+		 const int choiceNo, const std::list <std::string>& choiceList);
 	Room();
 	Room(const Room& other) = delete;
 	Room& operator = (const Room& other) = delete;
 	Room(Room&& other) noexcept;
 	~Room() noexcept;
 
-	int getID();
 
-	void drawRoom();// Function for drawing room elements
-	void drawRoomText();// Function for drawing room text
+	// Room Drawing Functions
+	void drawRoom();// Master
+	void drawRoomStory();// Textbox & Choices
+	void drawRoomText();
+
 
 
 	bool operator < (const Room& rhs) const;

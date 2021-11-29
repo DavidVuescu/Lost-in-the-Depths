@@ -5,7 +5,7 @@
 
 Room::Room (int roomID, const std::string& roomText, 
 			const std::string& subjectPath, const std::string& backgroundPath,
-			int choiceNo, const std::list <std::string>& choiceList)
+			const int choiceNo, const std::list <std::string>& choiceList)
 	:
 	roomID(roomID),
 	roomText(roomText),
@@ -40,7 +40,6 @@ Room::Room(Room&& other) noexcept
 		
 {}
 
-
 void Room::drawRoom()
 {
 	// Background
@@ -53,21 +52,11 @@ void Room::drawRoom()
 								settings::windowFrameThickness, 
 								SHADE);
 
-	// Textbox Base
-	daveLib::DrawRectangleRounded(settings::textboxPos, 
-								settings::textboxWidthHeight, 
-								settings::textboxRoundness, 
-								settings::textboxSegments, 
-								HOLLOWBRICK);
-	// Textbox Shadow
-	daveLib::DrawRectangleRounded(settings::textFramePos, 
-								settings::textFrameWidthHeight, 
-								settings::textboxRoundness,
-								settings::textboxSegments,
-								DARKLIGHT);
-
+	// Textbox & Choices
+	drawRoomStory();
+	
 	// Subject Shadow
-	daveLib::DrawCircle(settings::ShadowsPos, 
+	daveLib::DrawCircle(settings::shadowsPos, 
 						settings::shadowRadius, 
 						SHADE);
 	// Room Subject
@@ -75,6 +64,44 @@ void Room::drawRoom()
 						settings::subjectPos, 
 						RAYWHITE);
 
+
+}
+
+void Room::drawRoomStory()
+{
+	Vec2<int> boxSize{};
+	Vec2<int> boxFrameSize{};
+
+	switch (roomChoiceNo) // Textbox becomes smaller for each choice
+	{
+	case 1: {boxSize = settings::boxSize1; boxFrameSize = settings::boxFrameSize1; break; };
+	case 2: {boxSize = settings::boxSize2; boxFrameSize = settings::boxFrameSize2; break; };
+	case 3: {boxSize = settings::boxSize3; boxFrameSize = settings::boxFrameSize3; break; };
+	}
+	// Textbox Frame
+	daveLib::DrawRectangleRounded(settings::boxFramePos,
+								boxFrameSize,
+								settings::boxRoundness,
+								settings::boxSegments,
+								HOLLOWBRICK);
+	// Textbox
+	daveLib::DrawRectangleRounded(settings::boxPos,
+								boxSize,
+								settings::boxRoundness,
+								settings::boxSegments,
+								DARKLIGHT);
+	// Choices
+	int choiceX = settings::boxFramePos.GetX();
+	int choiceY = settings::boxFramePos.GetY() + settings::choicePadding*2 + boxSize.GetY();
+	for (int i = 0; i < roomChoiceNo; ++i)
+	{
+		daveLib::DrawRectangleRounded({ choiceX, choiceY },
+										{ boxFrameSize.GetX(), settings::choiceHeight },
+										settings::choiceRoundness,
+										settings::boxSegments,
+										HOLLOWBRICK);
+		choiceY = choiceY + settings::choicePadding + settings::choiceHeight;
+	}
 
 }
 
@@ -99,6 +126,12 @@ void Room::drawRoomText()
 			}
 		}
 	}
+	// Leftover Text in Buffer
+	DrawText(writeBuffer.c_str(),
+		settings::textPosX,
+		initialDrawPosY,
+		settings::fontSize,
+		RAYWHITE);
 }
 
 

@@ -4,8 +4,8 @@
 #include "Vec2.h"
 
 #define SHADE		CLITERAL(Color){ 0, 0, 0, 100 }
-#define HOLLOWBRICK	CLITERAL(Color){ 63,68, 70, 39 }
-#define DARKLIGHT	CLITERAL(Color){ 23, 18, 19, 40 }
+#define HOLLOWBRICK	CLITERAL(Color){ 63,68, 70, 70 }
+#define DARKLIGHT	CLITERAL(Color){ 23, 18, 19, 60 }
 
 namespace daveLib
 {

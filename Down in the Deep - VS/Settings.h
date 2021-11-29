@@ -18,17 +18,28 @@ namespace settings
 
 
 	// Textbox Settings
-	inline constexpr Vec2<int> textboxPos { 30,30 };
-	inline constexpr Vec2<int> textboxWidthHeight{ 500,660 };
-	inline constexpr float textboxRoundness = 0.2;
-	inline constexpr int textboxSegments = 100;
+	inline constexpr Vec2<int> boxFramePos{ 30,30 };
+	inline constexpr Vec2<int> boxFrameSize1{ 500,600 };
+	inline constexpr Vec2<int> boxFrameSize2{ 500,540 };
+	inline constexpr Vec2<int> boxFrameSize3{ 500,480 };
 
-	inline constexpr Vec2<int> textFramePos { 35,35 };
-	inline constexpr Vec2<int> textFrameWidthHeight { 490,650 };
+	inline constexpr Vec2<int> boxPos{ 35,35 };
+	inline constexpr Vec2<int> boxSize1{ 490,590 };
+	inline constexpr Vec2<int> boxSize2{ 490,530 };
+	inline constexpr Vec2<int> boxSize3{ 490,470 };
+
+	inline constexpr float boxRoundness = 0.1;
+	inline constexpr int boxSegments = 100;
 	
 
+	// Choice Boxes Settings
+	inline constexpr int choiceHeight = 50;
+	inline constexpr int choicePadding = 10;
+	inline constexpr float choiceRoundness = 0.5;
+
+
 	// Room Subject Settings
-	inline constexpr Vec2<int> ShadowsPos { 900,250 };
+	inline constexpr Vec2<int> shadowsPos { 900,250 };
 	inline constexpr int shadowRadius = 200;
 	inline constexpr Vec2<int> subjectPos { 700,30 };
 
