@@ -5,7 +5,9 @@
 class Scenes
 {
 public:
+
 	std::map <int, Room> roomIndex;
+	Room currentRoom;
 
 	void initRooms();
 };

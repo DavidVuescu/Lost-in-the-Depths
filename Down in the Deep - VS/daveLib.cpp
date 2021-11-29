@@ -44,3 +44,8 @@ void daveLib::DrawTexture(Texture2D texture, Vec2<int> pos, Color tint)
 
     DrawTexture(texture, pos.GetX(), pos.GetY(), tint);
 }
+
+void daveLib::DrawTextureRec(Texture2D texture, Rectangle source, Vec2<int> pos, Color tint)
+{
+    DrawTextureRec(texture, source, Vector2{(float)pos.GetX(), (float)pos.GetY()}, tint);
+}

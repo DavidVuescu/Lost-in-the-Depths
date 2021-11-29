@@ -1,7 +1,16 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
+#include <stdlib.h>
+#include <raylib.h>
 #include "Vec2.h"
+
+// Types
+enum States
+{
+	Cutscene, //Player sprite hidden, can skip (TBD)
+	Adventure //Player sprite active, can move up and down to choose
+};
 
 namespace settings
 {
@@ -18,24 +27,30 @@ namespace settings
 
 
 	// Textbox Settings
+	// Frame
 	inline constexpr Vec2<int> boxFramePos{ 30,30 };
 	inline constexpr Vec2<int> boxFrameSize1{ 500,600 };
 	inline constexpr Vec2<int> boxFrameSize2{ 500,540 };
 	inline constexpr Vec2<int> boxFrameSize3{ 500,480 };
-
+	// Box
 	inline constexpr Vec2<int> boxPos{ 35,35 };
 	inline constexpr Vec2<int> boxSize1{ 490,590 };
 	inline constexpr Vec2<int> boxSize2{ 490,530 };
 	inline constexpr Vec2<int> boxSize3{ 490,470 };
-
+	// Other Params
 	inline constexpr float boxRoundness = 0.1;
 	inline constexpr int boxSegments = 100;
 	
-
-	// Choice Boxes Settings
+	// Choice Settings
+	// Boxes
 	inline constexpr int choiceHeight = 50;
 	inline constexpr int choicePadding = 10;
 	inline constexpr float choiceRoundness = 0.5;
+	inline constexpr Vec2<int> /*dynamic*/choicePos1{ boxFramePos.GetX(),boxFramePos.GetY() + choicePadding * 2 + boxSize1.GetY() };
+	inline constexpr Vec2<int> /*dynamic*/choicePos2{ boxFramePos.GetX(),boxFramePos.GetY() + choicePadding * 2 + boxSize2.GetY() };
+	inline constexpr Vec2<int> /*dynamic*/choicePos3{ boxFramePos.GetX(),boxFramePos.GetY() + choicePadding * 2 + boxSize3.GetY() };
+	// Text
+	inline constexpr Vec2<int> /*dynamic*/choiceDisplacement{ choiceHeight / 2 * 3,choiceHeight / 3 };
 
 
 	// Room Subject Settings
@@ -49,6 +64,15 @@ namespace settings
 	inline constexpr int writerDangerZone = 350;//Where the writer should stop and begin a newline
 	inline constexpr int textPosX = 55;
 	inline constexpr int textPosY = 70;
+
+
+
+	// Player Render
+	inline constexpr Rectangle shirtCoords1{ 0,0,16,16 };
+	inline constexpr Rectangle shirtCoords2{ 16,0,16,16 };
+	// Player Variables
+	inline constexpr int firstRoom = 1;
+	inline constexpr int /*dynamic*/playerTravelDistance = choiceHeight + choicePadding;
 }
 
 #endif

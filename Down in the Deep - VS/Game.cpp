@@ -5,12 +5,15 @@
 #include "Settings.h"
 
 Game::Game(int width, int height, int FPS, std::string title)
+	:
+	currentRoom(settings::firstRoom)
 {
 	assert(!GetWindowHandle()); // If assertion triggers : Game window already open
 
 	SetTargetFPS(FPS);
 	InitWindow(width, height, title.c_str());
-	roomMap.initRooms();
+	roomMgr.initRooms();
+	player.setSprite("Assets/Player/playerSprite.png");
 }
 
 Game::~Game() noexcept
@@ -36,10 +39,17 @@ void Game::tick()
 void Game::update() // Function used for frame updating
 {
 	ClearBackground(BLACK);
+
+	switch (roomMgr.roomIndex[currentRoom].getRoomID())
+	{
+	case 0: { player.setState(Cutscene); break; }
+	case 1: { player.setState(Adventure); break; }
+	}
+
+	player.movePlayer();
 }
 void Game::render() // Function used for drawing
 {
-	int i = 2;
-	roomMap.roomIndex[i].drawRoom();
-	roomMap.roomIndex[i].drawRoomText();
+	roomMgr.roomIndex[currentRoom].drawRoom();
+	player.renderPlayer();
 }

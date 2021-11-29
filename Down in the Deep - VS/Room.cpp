@@ -3,16 +3,22 @@
 #include "daveLib.h"
 #include "Settings.h"
 
-Room::Room (int roomID, const std::string& roomText, 
-			const std::string& subjectPath, const std::string& backgroundPath,
-			const int choiceNo, const std::list <std::string>& choiceList)
+Room::Room (int roomID, 
+			const std::string& roomText, 
+			const std::string& subjectPath, 
+			const std::string& backgroundPath,
+			const int choiceNo, 
+			const std::vector <std::string>& choiceList,
+			const std::vector <std::string>& choiceResults)
 	:
 	roomID(roomID),
 	roomText(roomText),
 	roomSubject(LoadTexture(subjectPath.c_str())),
 	roomBackground(LoadTexture(backgroundPath.c_str())),
 	roomChoiceNo(choiceNo),
-	choiceList(choiceList)
+	selectedChoice(1),
+	choiceList(choiceList),
+	choiceResultList(choiceResults)
 {
 	assert(choiceNo > 0 && choiceNo < 4); // If assertio triggers : Number of room choices doesn't correspond (1-3 per room)
 }
@@ -23,8 +29,23 @@ Room::Room()
 	roomSubject(),
 	roomBackground(),
 	roomChoiceNo(0),
-	choiceList()
+	selectedChoice(1),
+	choiceList(),
+	choiceResultList()
 {}
+
+Room& Room::operator = (const Room& other) 
+{
+	roomID = other.roomID;
+	roomText = other.roomText;
+	roomSubject = other.roomSubject;
+	roomBackground = other.roomBackground;
+	roomChoiceNo = other.roomChoiceNo;
+	selectedChoice = other.selectedChoice;
+	choiceList = other.choiceList;
+	choiceResultList = other.choiceList;
+	return *this;
+}
 
 Room::~Room() noexcept
 {}
@@ -36,9 +57,17 @@ Room::Room(Room&& other) noexcept
 	roomSubject(std::move(other.roomSubject)),
 	roomBackground(std::move(other.roomBackground)),
 	roomChoiceNo(other.roomChoiceNo),
-	choiceList(std::move(other.choiceList))
+	selectedChoice(other.selectedChoice),
+	choiceList(std::move(other.choiceList)),
+	choiceResultList(std::move(other.choiceResultList))
 		
 {}
+
+const int Room::getRoomID()
+{
+	return roomID;
+}
+
 
 void Room::drawRoom()
 {
@@ -52,9 +81,6 @@ void Room::drawRoom()
 								settings::windowFrameThickness, 
 								SHADE);
 
-	// Textbox & Choices
-	drawRoomStory();
-	
 	// Subject Shadow
 	daveLib::DrawCircle(settings::shadowsPos, 
 						settings::shadowRadius, 
@@ -64,6 +90,11 @@ void Room::drawRoom()
 						settings::subjectPos, 
 						RAYWHITE);
 
+	// Textbox & Choices
+	drawRoomStory();
+
+	// Room Text
+	roomTextWriter();
 
 }
 
@@ -71,12 +102,13 @@ void Room::drawRoomStory()
 {
 	Vec2<int> boxSize{};
 	Vec2<int> boxFrameSize{};
+	Vec2<int> choicePos{};
 
-	switch (roomChoiceNo) // Textbox becomes smaller for each choice
+	switch (roomChoiceNo) // Assigning box sizing dependant on number of choices
 	{
-	case 1: {boxSize = settings::boxSize1; boxFrameSize = settings::boxFrameSize1; break; };
-	case 2: {boxSize = settings::boxSize2; boxFrameSize = settings::boxFrameSize2; break; };
-	case 3: {boxSize = settings::boxSize3; boxFrameSize = settings::boxFrameSize3; break; };
+	case 1: {boxSize = settings::boxSize1; boxFrameSize = settings::boxFrameSize1; choicePos = settings::choicePos1; break; };
+	case 2: {boxSize = settings::boxSize2; boxFrameSize = settings::boxFrameSize2; choicePos = settings::choicePos2; break; };
+	case 3: {boxSize = settings::boxSize3; boxFrameSize = settings::boxFrameSize3; choicePos = settings::choicePos3; break; };
 	}
 	// Textbox Frame
 	daveLib::DrawRectangleRounded(settings::boxFramePos,
@@ -90,22 +122,30 @@ void Room::drawRoomStory()
 								settings::boxRoundness,
 								settings::boxSegments,
 								DARKLIGHT);
-	// Choices
-	int choiceX = settings::boxFramePos.GetX();
-	int choiceY = settings::boxFramePos.GetY() + settings::choicePadding*2 + boxSize.GetY();
 	for (int i = 0; i < roomChoiceNo; ++i)
 	{
-		daveLib::DrawRectangleRounded({ choiceX, choiceY },
-										{ boxFrameSize.GetX(), settings::choiceHeight },
-										settings::choiceRoundness,
-										settings::boxSegments,
-										HOLLOWBRICK);
-		choiceY = choiceY + settings::choicePadding + settings::choiceHeight;
+		// Choices
+		daveLib::DrawRectangleRounded(choicePos,
+									{ boxFrameSize.GetX(), settings::choiceHeight },
+									settings::choiceRoundness,
+									settings::boxSegments,
+									HOLLOWBRICK);
+
+		// Choice Text
+		Vec2<int> choiceTextCoords = choicePos + settings::choiceDisplacement;
+
+		DrawText(choiceList[i].c_str(), 
+				choiceTextCoords.GetX(),
+				choiceTextCoords.GetY(),
+				settings::fontSize, 
+				RAYWHITE);
+
+		choicePos += {0, settings::choicePadding + settings::choiceHeight};//Moving drawing to next choice position
 	}
 
 }
 
-void Room::drawRoomText()
+void Room::roomTextWriter()
 {
 	std::string writeBuffer;
 	int initialDrawPosY = settings::textPosY;
@@ -133,7 +173,6 @@ void Room::drawRoomText()
 		settings::fontSize,
 		RAYWHITE);
 }
-
 
 
 bool Room::operator < (const Room& rhs) const

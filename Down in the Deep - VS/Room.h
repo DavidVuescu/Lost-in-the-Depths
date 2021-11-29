@@ -3,7 +3,7 @@
 
 #include <raylib.h>
 #include <string>
-#include <list>
+#include <vector>
 
 class Room
 {
@@ -14,24 +14,33 @@ class Room
 	Texture2D roomSubject;
 	Texture2D roomBackground;
 
-	const int roomChoiceNo;
-	std::list <std::string> choiceList;
+	int roomChoiceNo;
+	int selectedChoice;
+	std::vector <std::string> choiceList;
+	std::vector <std::string> choiceResultList;
+
 
 public:
-	Room(int roomID, const std::string& roomText,
-		 const std::string& subjectPath, const std::string& backgroundPath,
-		 const int choiceNo, const std::list <std::string>& choiceList);
+	Room(int roomID, 
+		 const std::string& roomText,
+		 const std::string& subjectPath, 
+		 const std::string& backgroundPath,
+		 const int choiceNo, 
+		 const std::vector <std::string>& choiceList,
+		 const std::vector <std::string>& choiceResults);
 	Room();
 	Room(const Room& other) = delete;
-	Room& operator = (const Room& other) = delete;
+	Room& operator = (const Room& other);
 	Room(Room&& other) noexcept;
 	~Room() noexcept;
+
+	const int getRoomID();
 
 
 	// Room Drawing Functions
 	void drawRoom();// Master
 	void drawRoomStory();// Textbox & Choices
-	void drawRoomText();
+	void roomTextWriter();
 
 
 

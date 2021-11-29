@@ -15,4 +15,5 @@ namespace daveLib
 	void DrawCircle(Vec2<int> centerPos, float radius, Color color);
 
 	void DrawTexture(Texture2D texture, Vec2<int> pos, Color tint);
+	void DrawTextureRec(Texture2D texture, Rectangle source, Vec2<int> pos, Color color);
 }
