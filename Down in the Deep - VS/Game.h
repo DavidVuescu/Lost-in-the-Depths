@@ -11,7 +11,6 @@ class Game
 public:
 
 	Scenes roomMgr;
-	int currentRoom;
 
 	Player player;
 	

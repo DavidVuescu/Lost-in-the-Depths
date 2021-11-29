@@ -15,7 +15,6 @@ class Room
 	Texture2D roomBackground;
 
 	int roomChoiceNo;
-	int selectedChoice;
 	std::vector <std::string> choiceList;
 	std::vector <std::string> choiceResultList;
 
@@ -35,6 +34,7 @@ public:
 	~Room() noexcept;
 
 	const int getRoomID();
+	int getChoiceNo();
 
 
 	// Room Drawing Functions

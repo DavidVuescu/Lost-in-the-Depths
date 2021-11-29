@@ -1,4 +1,150 @@
 #include "ScenesMgr.h"
+#include "daveLib.h"
+#include "Settings.h"
+
+Scenes::Scenes()
+	:
+	currentScene(),
+	currentChoice(1)
+{}
+
+Scenes::~Scenes()
+{}
+
+
+int Scenes::getSceneType()
+{
+	return currentScene.getRoomID();
+}
+
+int Scenes::getSceneChoiceNo()
+{
+	return currentScene.getChoiceNo();
+}
+
+void Scenes::setCurrentRoom(int newRoom)
+{
+	currentScene = roomIndex[newRoom];
+}
+
+void Scenes::printCurrentScene()
+{
+	currentScene.drawRoom();
+	currentScene.drawRoomStory();
+	currentScene.roomTextWriter();
+}
+
+void Scenes::highlightChoice(int highlighted, int totalChoices, Player player)
+{
+	switch (totalChoices)
+	{
+	case 1:
+	{
+		daveLib::DrawRectangleRounded(settings::choicePos3 + 5,
+			settings::choiceHighlightSize,
+			settings::choiceRoundness,
+			settings::boxSegments,
+			DARKLIGHT);
+		player.movePlayer(settings::choicePos3 + settings::playerPadding_Room);
+
+		break;
+	}
+	case 2:
+	{
+		switch (highlighted)
+		{
+		case 1:
+		{
+			daveLib::DrawRectangleRounded(settings::choicePos2 + 5,
+				settings::choiceHighlightSize,
+				settings::choiceRoundness,
+				settings::boxSegments,
+				DARKLIGHT);
+			player.movePlayer(settings::choicePos2 + settings::playerPadding_Room);
+			break;
+		}
+		case 2:
+		{
+			daveLib::DrawRectangleRounded(settings::choicePos3 + 5,
+				settings::choiceHighlightSize,
+				settings::choiceRoundness,
+				settings::boxSegments,
+				DARKLIGHT);
+			player.movePlayer(settings::choicePos3 + settings::playerPadding_Room);
+			break;
+		}
+		}
+		break;
+	}
+	case 3:
+	{
+		switch (highlighted)
+		{
+		case 1:
+		{
+			daveLib::DrawRectangleRounded(settings::choicePos1 + 5,
+				settings::choiceHighlightSize,
+				settings::choiceRoundness,
+				settings::boxSegments,
+				DARKLIGHT);
+			player.movePlayer(settings::choicePos1 + settings::playerPadding_Room);
+			break;
+		}
+		case 2:
+		{
+			daveLib::DrawRectangleRounded(settings::choicePos2 + 5,
+				settings::choiceHighlightSize,
+				settings::choiceRoundness,
+				settings::boxSegments,
+				DARKLIGHT);
+			player.movePlayer(settings::choicePos2 + settings::playerPadding_Room);
+			break;
+		}
+		case 3:
+		{
+			daveLib::DrawRectangleRounded(settings::choicePos3 + 5,
+				settings::choiceHighlightSize,
+				settings::choiceRoundness,
+				settings::boxSegments,
+				DARKLIGHT);
+			player.movePlayer(settings::choicePos3 + settings::playerPadding_Room);
+			break;
+		}
+		}
+		break;
+	}
+	}
+}
+int Scenes::getPlayerInput_Adventure()
+{
+	const int totalChoices = currentScene.getChoiceNo();
+
+	if (IsKeyPressed(KEY_UP) && currentChoice != totalChoices)
+	{
+		++currentChoice;
+		/*DEBUG*/printf("--------- ROOMMGR: Down key pressed\n");
+	}
+	else if (IsKeyPressed(KEY_UP) && currentChoice == totalChoices)
+	{
+		currentChoice = 1;
+		/*DEBUG*/printf("--------- ROOMMGR: Down key pressed\n");
+	}
+	else if (IsKeyPressed(KEY_DOWN) && currentChoice != 1)
+	{
+		--currentChoice;
+		/*DEBUG*/printf("--------- ROOMMGR: Up key pressed\n");
+	}
+	else if (IsKeyPressed(KEY_DOWN) && currentChoice == 1)
+	{
+		currentChoice = totalChoices;
+		/*DEBUG*/printf("--------- ROOMMGR: Up key pressed\n");
+	}
+	else currentChoice = currentChoice;
+
+	if (IsKeyPressed(KEY_ENTER)) return 1;
+	if (IsKeyPressed(KEY_SPACE)) return 1;
+}
+
 
 void Scenes::initRooms()
 {
@@ -13,3 +159,4 @@ void Scenes::initRooms()
 								 "You decided ignorint the banana was the best course of action. You were wrong, while ignoring the banana, you slipped and cracked your skull",
 								 "You tried talking to the banana. It was an interesting conversation by which you were heavily moved. Filled with newfound hope, you continue your journey"}));
 }
+

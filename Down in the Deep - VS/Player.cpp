@@ -14,6 +14,13 @@ Player::Player()
 {
 	/*DEBUG*/printf("--------- PLAYER : Shirt colour is : %d\n", playerShirtColor);
 }
+Player::Player(const Player& other)
+	:
+	playerState(other.playerState),
+	playerSprite(other.playerSprite),
+	playerCoords(other.playerCoords),
+	playerShirtColor(other.playerShirtColor)
+{}
 
 Player::~Player()
 {}
@@ -59,18 +66,9 @@ void Player::renderPlayer()
 	}
 	
 }
-void Player::movePlayer()
-{
-	switch (playerState)
-	{
-	case Cutscene:
-	{
-		playerCoords = { -100,-100 };
-	}
-	//case Adventure
-	//{
-
-	//}
-	}
+void Player::hidePlayer() { playerCoords = { -100,-100 }; }
+void Player::movePlayer(Vec2<int> pos) 
+{ 
+	playerCoords = { pos.GetX(),pos.GetY() };
 }
 

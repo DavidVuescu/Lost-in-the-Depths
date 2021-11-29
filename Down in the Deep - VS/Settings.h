@@ -49,6 +49,7 @@ namespace settings
 	inline constexpr Vec2<int> /*dynamic*/choicePos1{ boxFramePos.GetX(),boxFramePos.GetY() + choicePadding * 2 + boxSize1.GetY() };
 	inline constexpr Vec2<int> /*dynamic*/choicePos2{ boxFramePos.GetX(),boxFramePos.GetY() + choicePadding * 2 + boxSize2.GetY() };
 	inline constexpr Vec2<int> /*dynamic*/choicePos3{ boxFramePos.GetX(),boxFramePos.GetY() + choicePadding * 2 + boxSize3.GetY() };
+	inline constexpr Vec2<int> /*dynamic*/choiceHighlightSize{ boxSize3.GetX(),choiceHeight - 10 };
 	// Text
 	inline constexpr Vec2<int> /*dynamic*/choiceDisplacement{ choiceHeight / 2 * 3,choiceHeight / 3 };
 
@@ -70,6 +71,7 @@ namespace settings
 	// Player Render
 	inline constexpr Rectangle shirtCoords1{ 0,0,16,16 };
 	inline constexpr Rectangle shirtCoords2{ 16,0,16,16 };
+	inline constexpr int /*dynamic*/playerPadding_Room = choiceHeight / 3;
 	// Player Variables
 	inline constexpr int firstRoom = 1;
 	inline constexpr int /*dynamic*/playerTravelDistance = choiceHeight + choicePadding;

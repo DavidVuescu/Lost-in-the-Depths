@@ -16,7 +16,6 @@ Room::Room (int roomID,
 	roomSubject(LoadTexture(subjectPath.c_str())),
 	roomBackground(LoadTexture(backgroundPath.c_str())),
 	roomChoiceNo(choiceNo),
-	selectedChoice(1),
 	choiceList(choiceList),
 	choiceResultList(choiceResults)
 {
@@ -29,7 +28,6 @@ Room::Room()
 	roomSubject(),
 	roomBackground(),
 	roomChoiceNo(0),
-	selectedChoice(1),
 	choiceList(),
 	choiceResultList()
 {}
@@ -41,7 +39,6 @@ Room& Room::operator = (const Room& other)
 	roomSubject = other.roomSubject;
 	roomBackground = other.roomBackground;
 	roomChoiceNo = other.roomChoiceNo;
-	selectedChoice = other.selectedChoice;
 	choiceList = other.choiceList;
 	choiceResultList = other.choiceList;
 	return *this;
@@ -57,7 +54,6 @@ Room::Room(Room&& other) noexcept
 	roomSubject(std::move(other.roomSubject)),
 	roomBackground(std::move(other.roomBackground)),
 	roomChoiceNo(other.roomChoiceNo),
-	selectedChoice(other.selectedChoice),
 	choiceList(std::move(other.choiceList)),
 	choiceResultList(std::move(other.choiceResultList))
 		
@@ -68,7 +64,13 @@ const int Room::getRoomID()
 	return roomID;
 }
 
+int Room::getChoiceNo()
+{
+	return roomChoiceNo;
+}
 
+
+// Draw Room Functions: Background, Window Frame, Subject, Subject Shadow
 void Room::drawRoom()
 {
 	// Background
@@ -89,15 +91,9 @@ void Room::drawRoom()
 	daveLib::DrawTexture(roomSubject, 
 						settings::subjectPos, 
 						RAYWHITE);
-
-	// Textbox & Choices
-	drawRoomStory();
-
-	// Room Text
-	roomTextWriter();
-
 }
 
+// Draw Room Functions: Textbox & Choices 
 void Room::drawRoomStory()
 {
 	Vec2<int> boxSize{};
@@ -145,6 +141,7 @@ void Room::drawRoomStory()
 
 }
 
+// Draw Room Functions: Text
 void Room::roomTextWriter()
 {
 	std::string writeBuffer;

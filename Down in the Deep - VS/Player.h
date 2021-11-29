@@ -2,6 +2,7 @@
 
 #include <string>
 #include <raylib.h>
+#include "Settings.h"
 #include "Vec2.h"
 
 class Player
@@ -14,8 +15,8 @@ class Player
 
 public:
 	Player();
-	Player(const Player& other) = delete;
-	Player& operator = (const Player& other) = delete;
+	Player(const Player& other);
+	Player& operator = (const Player& other);
 	~Player() noexcept;
 
 	States getState(); 
@@ -24,6 +25,7 @@ public:
 	void setSprite(const std::string& spritePath);
 
 	void renderPlayer();
-	void movePlayer();
+	void hidePlayer();
+	void movePlayer(Vec2<int> pos);
 };
 
