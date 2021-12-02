@@ -38,6 +38,9 @@ void SceneMgr::printCurrentScene()
 
 void SceneMgr::highlightChoice(int highlighted, int totalChoices, Player player)
 {
+	Color boxColor = DARKLIGHT;
+	if (currentScene.getRoomFinishState()) boxColor = MONSOON;
+
 	switch (totalChoices)
 	{
 	case 1:
@@ -46,7 +49,7 @@ void SceneMgr::highlightChoice(int highlighted, int totalChoices, Player player)
 			settings::choiceHighlightSize,
 			settings::choiceRoundness,
 			settings::boxSegments,
-			DARKLIGHT);
+			boxColor);
 		player.movePlayer(settings::choicePos3 + settings::playerPadding_Room);
 
 		break;
@@ -61,7 +64,7 @@ void SceneMgr::highlightChoice(int highlighted, int totalChoices, Player player)
 				settings::choiceHighlightSize,
 				settings::choiceRoundness,
 				settings::boxSegments,
-				DARKLIGHT);
+				boxColor);
 			player.movePlayer(settings::choicePos2 + settings::playerPadding_Room);
 			break;
 		}
@@ -71,7 +74,7 @@ void SceneMgr::highlightChoice(int highlighted, int totalChoices, Player player)
 				settings::choiceHighlightSize,
 				settings::choiceRoundness,
 				settings::boxSegments,
-				DARKLIGHT);
+				boxColor);
 			player.movePlayer(settings::choicePos3 + settings::playerPadding_Room);
 			break;
 		}
@@ -88,7 +91,7 @@ void SceneMgr::highlightChoice(int highlighted, int totalChoices, Player player)
 				settings::choiceHighlightSize,
 				settings::choiceRoundness,
 				settings::boxSegments,
-				DARKLIGHT);
+				boxColor);
 			player.movePlayer(settings::choicePos1 + settings::playerPadding_Room);
 			break;
 		}
@@ -98,7 +101,7 @@ void SceneMgr::highlightChoice(int highlighted, int totalChoices, Player player)
 				settings::choiceHighlightSize,
 				settings::choiceRoundness,
 				settings::boxSegments,
-				DARKLIGHT);
+				boxColor);
 			player.movePlayer(settings::choicePos2 + settings::playerPadding_Room);
 			break;
 		}
@@ -108,7 +111,7 @@ void SceneMgr::highlightChoice(int highlighted, int totalChoices, Player player)
 				settings::choiceHighlightSize,
 				settings::choiceRoundness,
 				settings::boxSegments,
-				DARKLIGHT);
+				boxColor);
 			player.movePlayer(settings::choicePos3 + settings::playerPadding_Room);
 			break;
 		}

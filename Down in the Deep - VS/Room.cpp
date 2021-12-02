@@ -131,6 +131,8 @@ void Room::drawRoomStory(int boxNumber)
 	case 3: {boxSize = settings::boxSize3; boxFrameSize = settings::boxFrameSize3; choicePos = settings::choicePos3; break; };
 	}
 
+	Color boxColor = DARKLIGHT;
+	if (isRoomFinished) boxColor = MONSOON; //If user selected his/her choice
 
 	// Textbox Frame
 	daveLib::DrawRectangleRounded(settings::boxFramePos,
@@ -143,7 +145,7 @@ void Room::drawRoomStory(int boxNumber)
 								boxSize,
 								settings::boxRoundness,
 								settings::boxSegments,
-								DARKLIGHT);
+								boxColor);
 	for (int i = 0; i < boxNumber; ++i)
 	{
 		// Choice Boxes
