@@ -19,9 +19,6 @@ public:
 	Player& operator = (const Player& other);
 	~Player() noexcept;
 
-	States getState(); 
-	void setState(States state);
-
 	void setSprite(const std::string& spritePath);
 
 	void renderPlayer();

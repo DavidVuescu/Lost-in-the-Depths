@@ -5,6 +5,8 @@
 #include "InitRooms.h"
 
 Game::Game(int width, int height, int FPS, std::string title)
+	:
+	gameState(Cutscene)
 {
 	assert(!GetWindowHandle()); // If assertion triggers : Game window already open
 
@@ -20,48 +22,80 @@ Game::~Game() noexcept
 	CloseWindow();
 }
 
+States Game::getState()
+{
+	return gameState;
+}
+void Game::setState(States state)
+{
+	gameState = state;
+}
+
+
 bool Game::shouldGameClose() const
 {
 	return WindowShouldClose();
 }
 
-
 void Game::tick()
 {
 	BeginDrawing();
+	state();
 	update();
 	render();
 	EndDrawing();
 }
 
+//Setting gamestate for game logic
+void Game::state()
+{
+	if (getState() == Cutscene)
+	{
+		switch (roomMgr.getSceneType())
+		{
+		case 1: {setState(Adventure); break; }
+		case 2: {setState(Paused); break; }
+		}
+	}
+}
 
-void Game::update() // Function used for frame updating
+//Frame updating
+void Game::update() 
 {
 	ClearBackground(BLACK);
 
-	switch (roomMgr.getSceneType())
+	switch (getState())
 	{
-	case 0: 
+	case Cutscene: 
 	{ 
-		player.setState(Cutscene); 
 		player.hidePlayer();
 		break; 
 	}
-	case 1: 
+	case Adventure: 
 	{ 
-		player.setState(Adventure); 
 		if (roomMgr.getPlayerInput_Adventure())
 		{
-			printf("--------- ROOMMGR: option has been selected\n");
-			printf("--------- ROOMMGR: room switched successfully\n");
+			/*DEBUG*/printf("--------- ROOMMGR: option has been selected\n");
+			setState(Paused);
+			roomMgr.currentScene.setRoomFinishState(true);
 		}
 		break; 
+	}
+	case Paused:
+	{
+		if (roomMgr.getPlayerInput_Paused())
+		{
+			/*DEBUG*/printf("--------- USR INPUT: player exited paused state\n");
+			setState(Cutscene);
+			roomMgr.nextRoom();
+		}
 	}
 	}
 
 }
 
-void Game::render() // Function used for drawing
+//Screen Drawing
+void Game::render() 
 {
 	roomMgr.printCurrentScene();
 	roomMgr.highlightChoice(roomMgr.currentChoice, roomMgr.getSceneChoiceNo(), std::move(player));

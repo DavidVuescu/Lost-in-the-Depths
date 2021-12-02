@@ -22,10 +22,14 @@ public:
 	int getSceneType();
 	int getSceneChoiceNo();
 	void setCurrentRoom(int newRoom);
+	void nextRoom();
 
 	void printCurrentScene();
 	void initRooms();
 
 	void highlightChoice(int highlighted, int totalChoices, Player player);
+
+	//Player Input
 	int getPlayerInput_Adventure();
+	int getPlayerInput_Paused();
 };

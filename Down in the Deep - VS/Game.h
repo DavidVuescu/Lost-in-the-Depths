@@ -9,9 +9,7 @@
 class Game
 {
 public:
-
 	SceneMgr roomMgr;
-
 	Player player;
 	
 	Game(int width, int height, int FPS, std::string title);
@@ -19,14 +17,21 @@ public:
 		Game& operator = (const Game& other) = delete;
 	~Game() noexcept;
 
+	States getState();
+	void setState(States state);
+
+
 	bool shouldGameClose() const;
 	void tick();
 
 
 private:
+	States gameState;
 
-	void render();// Function used for drawing
-	void update();// Function used for frame updating
+	void state(); //Setting gamestate for game logic
+
+	void update(); //Frame updating
+	void render(); //Drawing
 };
 
 #endif

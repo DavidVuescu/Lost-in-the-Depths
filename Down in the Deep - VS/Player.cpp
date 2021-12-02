@@ -7,7 +7,6 @@
 
 Player::Player()
 	:
-	playerState(Cutscene),
 	playerSprite(),
 	playerCoords({ 20,20 }),
 	playerShirtColor((rand() % 100 + 1) % 2)
@@ -16,7 +15,6 @@ Player::Player()
 }
 Player::Player(const Player& other)
 	:
-	playerState(other.playerState),
 	playerSprite(other.playerSprite),
 	playerCoords(other.playerCoords),
 	playerShirtColor(other.playerShirtColor)
@@ -25,15 +23,6 @@ Player::Player(const Player& other)
 Player::~Player()
 {}
 
-States Player::getState()
-{
-	return playerState;
-}
-
-void Player::setState(States state)
-{
-	playerState = state;
-}
 
 void Player::setSprite(const std::string& spritePath)
 {

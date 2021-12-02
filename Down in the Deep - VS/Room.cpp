@@ -9,12 +9,13 @@ Room::Room (int roomID,
 			const std::string& backgroundPath,
 			const std::vector <std::string>& choiceList,
 			const std::vector <std::string>& choiceResults,
-			const std::vector <int> roomLinks)
+			const std::vector <unsigned int> roomLinks)
 	:
 	roomID(roomID),
 	roomText(roomText),
 	roomSubject(LoadTexture(subjectPath.c_str())),
 	roomBackground(LoadTexture(backgroundPath.c_str())),
+	isRoomFinished(false),
 	choiceList(choiceList),
 	choiceResultList(choiceResults),
 	roomChoiceNo(choiceList.size()),
@@ -28,6 +29,7 @@ Room::Room()
 	roomText(),
 	roomSubject(),
 	roomBackground(),
+	isRoomFinished(false),
 	choiceList(),
 	choiceResultList(),
 	roomChoiceNo(0),
@@ -41,6 +43,8 @@ Room& Room::operator = (const Room& other)
 
 	roomSubject = other.roomSubject;
 	roomBackground = other.roomBackground;
+
+	isRoomFinished = other.isRoomFinished;
 
 	choiceList = other.choiceList;
 	choiceResultList = other.choiceList;
@@ -59,6 +63,7 @@ Room::Room(Room&& other) noexcept
 	roomText(std::move(other.roomText)),
 	roomSubject(std::move(other.roomSubject)),
 	roomBackground(std::move(other.roomBackground)),
+	isRoomFinished(other.isRoomFinished),
 	choiceList(std::move(other.choiceList)),
 	choiceResultList(std::move(other.choiceResultList)),
 	roomChoiceNo(other.roomChoiceNo),
@@ -73,11 +78,19 @@ int Room::getChoiceNo()
 {
 	return roomChoiceNo;
 }
-int Room::getLink(unsigned int index)
+
+void Room::setRoomFinishState(bool roomFinishState)
+{
+	isRoomFinished = roomFinishState;
+}
+bool Room::getRoomFinishState()
+{
+	return isRoomFinished;
+}
+unsigned int Room::fetchNextRoom(int index)
 {
 	return roomLinks[index];
 }
-
 
 
 // Draw Room Functions: Background, Window Frame, Subject, Subject Shadow

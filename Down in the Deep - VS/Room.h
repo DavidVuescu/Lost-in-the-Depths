@@ -14,11 +14,13 @@ class Room
 	Texture2D roomSubject;
 	Texture2D roomBackground;
 
+	bool isRoomFinished;
+
 	std::vector <std::string> choiceList;
 	std::vector <std::string> choiceResultList;
-	int roomChoiceNo;
+	unsigned int roomChoiceNo;
 
-	std::vector <int> roomLinks;
+	std::vector <unsigned int> roomLinks; 
 
 
 public:
@@ -28,7 +30,7 @@ public:
 		 const std::string& backgroundPath,
 		 const std::vector <std::string>& choiceList,
 		 const std::vector <std::string>& choiceResults,
-		 const std::vector <int> roomLinks);
+		 const std::vector <unsigned int> roomLinks);
 	Room();
 	Room(const Room& other) = delete;
 	Room& operator = (const Room& other);
@@ -37,7 +39,9 @@ public:
 
 	const int getRoomID();
 	int getChoiceNo();
-	int getLink(unsigned int index);
+	void setRoomFinishState(bool roomFinishState);
+	bool getRoomFinishState();
+	unsigned int fetchNextRoom(int index);
 
 
 	// Room Drawing Functions
