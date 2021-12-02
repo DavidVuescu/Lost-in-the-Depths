@@ -45,7 +45,7 @@ public:
 
 
 	// Room Drawing Functions
-	void drawRoom();// Master
+	void drawRoom(int userChoice);// Master
 	void drawRoomStory(int boxNumber);// Textbox & Choices
 	void roomTextWriter(std::string textIn);
 

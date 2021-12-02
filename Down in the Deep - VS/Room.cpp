@@ -47,7 +47,7 @@ Room& Room::operator = (const Room& other)
 	isRoomFinished = other.isRoomFinished;
 
 	choiceList = other.choiceList;
-	choiceResultList = other.choiceList;
+	choiceResultList = other.choiceResultList;
 	roomChoiceNo = other.roomChoiceNo;
 
 	roomLinks = other.roomLinks;
@@ -94,7 +94,7 @@ unsigned int Room::fetchNextRoom(int index)
 
 
 // Draw Room Functions: Background, Window Frame, Subject, Subject Shadow
-void Room::drawRoom()
+void Room::drawRoom(int userChoice)
 {
 	// Background
 	daveLib::DrawTexture(roomBackground, 
@@ -105,9 +105,12 @@ void Room::drawRoom()
 								settings::screenVec2, 
 								settings::windowFrameThickness, 
 								SHADE);
-	// Draw Room Functions: Textbox & Choices 
+	// Textbox & Choices 
 	drawRoomStory(roomChoiceNo);
-	roomTextWriter(roomText);
+
+	// Text & Choice repercussions (once user chooses)
+	if (!isRoomFinished) roomTextWriter(roomText);
+	else roomTextWriter(choiceResultList[userChoice]);
 
 	// Subject Shadow
 	daveLib::DrawCircle(settings::shadowsPos, 

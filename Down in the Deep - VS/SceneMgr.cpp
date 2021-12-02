@@ -32,7 +32,7 @@ void SceneMgr::nextRoom()
 
 void SceneMgr::printCurrentScene()
 {
-	currentScene.drawRoom();
+	currentScene.drawRoom(currentChoice-1);
 }
 
 
