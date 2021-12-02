@@ -3,14 +3,14 @@
 
 #include <string>
 #include "settings.h"
-#include "ScenesMgr.h"
+#include "SceneMgr.h"
 #include "Player.h"
 
 class Game
 {
 public:
 
-	Scenes roomMgr;
+	SceneMgr roomMgr;
 
 	Player player;
 	

@@ -73,7 +73,7 @@ namespace settings
 	inline constexpr Rectangle shirtCoords2{ 16,0,16,16 };
 	inline constexpr int /*dynamic*/playerPadding_Room = choiceHeight / 3;
 	// Player Variables
-	inline constexpr int firstRoom = 1;
+	inline constexpr int firstRoom = 3;
 	inline constexpr int /*dynamic*/playerTravelDistance = choiceHeight + choicePadding;
 }
 

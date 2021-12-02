@@ -14,19 +14,21 @@ class Room
 	Texture2D roomSubject;
 	Texture2D roomBackground;
 
-	int roomChoiceNo;
 	std::vector <std::string> choiceList;
 	std::vector <std::string> choiceResultList;
+	int roomChoiceNo;
+
+	std::vector <int> roomLinks;
 
 
 public:
-	Room(int roomID, 
+	Room(int roomID,
 		 const std::string& roomText,
-		 const std::string& subjectPath, 
+		 const std::string& subjectPath,
 		 const std::string& backgroundPath,
-		 const int choiceNo, 
 		 const std::vector <std::string>& choiceList,
-		 const std::vector <std::string>& choiceResults);
+		 const std::vector <std::string>& choiceResults,
+		 const std::vector <int> roomLinks);
 	Room();
 	Room(const Room& other) = delete;
 	Room& operator = (const Room& other);
@@ -35,12 +37,13 @@ public:
 
 	const int getRoomID();
 	int getChoiceNo();
+	int getLink(unsigned int index);
 
 
 	// Room Drawing Functions
 	void drawRoom();// Master
-	void drawRoomStory();// Textbox & Choices
-	void roomTextWriter();
+	void drawRoomStory(int boxNumber);// Textbox & Choices
+	void roomTextWriter(std::string textIn);
 
 
 

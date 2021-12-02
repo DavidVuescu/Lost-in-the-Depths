@@ -2,7 +2,7 @@
 #include <raylib.h>
 #include "Game.h"
 #include "Room.h"
-#include "Settings.h"
+#include "InitRooms.h"
 
 Game::Game(int width, int height, int FPS, std::string title)
 {
@@ -14,18 +14,17 @@ Game::Game(int width, int height, int FPS, std::string title)
 	roomMgr.setCurrentRoom(settings::firstRoom);
 	player.setSprite("Assets/Player/playerSprite.png");
 }
-
 Game::~Game() noexcept
 {
 	assert(GetWindowHandle()); // If assertion triggers : Game window already closed
 	CloseWindow();
 }
 
-
 bool Game::shouldGameClose() const
 {
 	return WindowShouldClose();
 }
+
 
 void Game::tick()
 {
@@ -34,6 +33,7 @@ void Game::tick()
 	render();
 	EndDrawing();
 }
+
 
 void Game::update() // Function used for frame updating
 {
@@ -50,7 +50,11 @@ void Game::update() // Function used for frame updating
 	case 1: 
 	{ 
 		player.setState(Adventure); 
-		if (roomMgr.getPlayerInput_Adventure()) printf("--------- ROOMMGR: option has been selected\n");
+		if (roomMgr.getPlayerInput_Adventure())
+		{
+			printf("--------- ROOMMGR: option has been selected\n");
+			printf("--------- ROOMMGR: room switched successfully\n");
+		}
 		break; 
 	}
 	}

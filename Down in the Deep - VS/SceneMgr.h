@@ -3,7 +3,7 @@
 #include "Room.h"
 #include "Player.h"
 
-class Scenes
+class SceneMgr
 {
 	std::map <int, Room> roomIndex;
 
@@ -13,10 +13,10 @@ public:
 	int currentChoice;
 
 
-	Scenes();
-	Scenes(const Scenes& other) = delete;
-	Scenes& operator = (const Scenes& other) = delete;
-	~Scenes() noexcept;
+	SceneMgr();
+	SceneMgr(const SceneMgr& other) = delete;
+	SceneMgr& operator = (const SceneMgr& other) = delete;
+	~SceneMgr() noexcept;
 
 
 	int getSceneType();
