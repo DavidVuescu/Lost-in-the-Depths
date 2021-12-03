@@ -5,7 +5,7 @@
 SceneMgr::SceneMgr()
 	:
 	currentScene(),
-	currentChoice(1)
+	currentChoice(0)
 {}
 SceneMgr::~SceneMgr()
 {}
@@ -25,14 +25,15 @@ void SceneMgr::setCurrentRoom(int newRoom)
 }
 void SceneMgr::nextRoom()
 {
-	int index = currentChoice - 1; //******FIX from 1-3 to 0-2 for peace of mind
-	setCurrentRoom(currentScene.fetchNextRoom(index));
+	setCurrentRoom(currentScene.fetchNextRoom(currentChoice));
+	currentChoice = 0;
+	/*DEBUG*/printf("--------- ROOMMGR: room changed successfully\n");
 }
 
 
 void SceneMgr::printCurrentScene()
 {
-	currentScene.drawRoom(currentChoice-1);
+	currentScene.drawRoom(currentChoice);
 }
 
 
@@ -58,7 +59,7 @@ void SceneMgr::highlightChoice(int highlighted, int totalChoices, Player player)
 	{
 		switch (highlighted)
 		{
-		case 1:
+		case 0:
 		{
 			daveLib::DrawRectangleRounded(settings::choicePos2 + 5,
 				settings::choiceHighlightSize,
@@ -68,7 +69,7 @@ void SceneMgr::highlightChoice(int highlighted, int totalChoices, Player player)
 			player.movePlayer(settings::choicePos2 + settings::playerPadding_Room);
 			break;
 		}
-		case 2:
+		case 1:
 		{
 			daveLib::DrawRectangleRounded(settings::choicePos1 + 5,
 				settings::choiceHighlightSize,
@@ -85,7 +86,7 @@ void SceneMgr::highlightChoice(int highlighted, int totalChoices, Player player)
 	{
 		switch (highlighted)
 		{
-		case 1:
+		case 0:
 		{
 			daveLib::DrawRectangleRounded(settings::choicePos3 + 5,
 				settings::choiceHighlightSize,
@@ -95,7 +96,7 @@ void SceneMgr::highlightChoice(int highlighted, int totalChoices, Player player)
 			player.movePlayer(settings::choicePos1 + settings::playerPadding_Room);
 			break;
 		}
-		case 2:
+		case 1:
 		{
 			daveLib::DrawRectangleRounded(settings::choicePos2 + 5,
 				settings::choiceHighlightSize,
@@ -105,7 +106,7 @@ void SceneMgr::highlightChoice(int highlighted, int totalChoices, Player player)
 			player.movePlayer(settings::choicePos2 + settings::playerPadding_Room);
 			break;
 		}
-		case 3:
+		case 2:
 		{
 			daveLib::DrawRectangleRounded(settings::choicePos1 + 5,
 				settings::choiceHighlightSize,
@@ -127,31 +128,33 @@ int SceneMgr::getPlayerInput_Adventure()
 	if (IsKeyPressed(KEY_DOWN))
 	{
 		++currentChoice;
-		if (currentChoice > totalChoices)
+		if (currentChoice > totalChoices - 1)
 		{
-			currentChoice = 1;
+			currentChoice = 0;
 		}
 		/*DEBUG*/printf("--------- USR INPUT: user pressed DOWN key\n");
-		/*DEBUG*/printf("--------- USR INPUT: current choice is: %d\n", currentChoice);
+		/*DEBUG*/printf("--------- USR INPUT: current choice is: %d\n", currentChoice+1);
 	}
 	else if (IsKeyPressed(KEY_UP))
 	{
 		--currentChoice;
-		if (currentChoice < 1)
+		if (currentChoice < 0)
 		{
-			currentChoice = totalChoices;
+			currentChoice = totalChoices - 1;
 		}
 		/*DEBUG*/printf("--------- USR INPUT: user pressed UP key\n");
-		/*DEBUG*/printf("--------- USR INPUT: current choice is: %d\n", currentChoice);
+		/*DEBUG*/printf("--------- USR INPUT: current choice is: %d\n", currentChoice+1);
 	}
 
 	if (IsKeyPressed(KEY_ENTER))
 	{
+		/*DEBUG*/printf("--------- USR INPUT: user pressed ENTER key\n");
 		currentScene.setRoomFinishState(true);
 		return 1;
 	}
 	if (IsKeyPressed(KEY_SPACE))
 	{
+		/*DEBUG*/printf("--------- USR INPUT: user pressed SPACE key\n");
 		currentScene.setRoomFinishState(true);
 		return 1;
 	}
