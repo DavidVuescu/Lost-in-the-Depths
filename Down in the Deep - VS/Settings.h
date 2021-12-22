@@ -75,7 +75,7 @@ namespace settings
 
 
 	// Gameplay Settings
-	inline constexpr int firstRoom = 3;
+	inline constexpr int firstRoom = 1;
 }
 
 #endif
