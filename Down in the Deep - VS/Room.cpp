@@ -21,7 +21,7 @@ Room::Room (int roomID,
 	roomChoiceNo(choiceList.size()),
 	roomLinks(roomLinks)
 {
-	assert(roomChoiceNo > 0 && roomChoiceNo < 4); // If assertio triggers : Number of room choices doesn't correspond (1-3 per room)
+	assert(roomChoiceNo > 0 && roomChoiceNo < 4); // If assertion triggers : Number of room choices doesn't correspond (1-3 per room)
 }
 Room::Room()
 	:

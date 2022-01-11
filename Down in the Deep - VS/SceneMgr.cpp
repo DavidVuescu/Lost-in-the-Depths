@@ -1,14 +1,26 @@
+#include <assert.h>
+#include <iostream>
+
 #include "SceneMgr.h"
 #include "daveLib.h"
 #include "Settings.h"
 
+#include "json/json.h"
+#include "json/forwards.h"
+
 SceneMgr::SceneMgr()
 	:
+	roomFile("Data/rooms.json"),
 	currentScene(),
 	currentChoice(0)
-{}
+{
+	assert(roomFile.is_open()); // If assertion triggers : Program could not find rooms.json
+	reader.parse(roomFile, roomJson);
+}
 SceneMgr::~SceneMgr()
-{}
+{
+	roomFile.close();
+}
 
 
 int SceneMgr::getSceneType()
@@ -19,9 +31,41 @@ int SceneMgr::getSceneChoiceNo()
 {
 	return currentScene.getChoiceNo();
 }
+int SceneMgr::getRoomAdress(int newRoom)
+{
+	reader.parse(roomFile, roomJson);
+	int idx = 1;
+	int i=1;
+	int adress = roomJson[i]["Adress"].asInt();
+	while (adress != newRoom)
+	{
+		i++; idx++;
+		adress = roomJson[i]["Adress"].asInt();
+		if (idx == 1000) break;
+	}
+	return idx;
+}
 void SceneMgr::setCurrentRoom(int newRoom)
 {
-	currentScene = roomIndex[newRoom];
+	int adress = getRoomAdress(newRoom);
+	assert(adress != 1000); // If assertion triggers : Program could not find room adress
+	/*DEBUG*/printf("--------- ROOMMGR: accessing room adress: %d\n", adress);
+
+	int type = roomJson[adress]["Type"].asInt();
+	std::string blurb = roomJson[adress]["Blurb"].asString();
+	std::string subject = roomJson[adress]["Subject"].asString();
+	std::string background = roomJson[adress]["Background"].asString();
+
+	std::vector<std::string> choiceVector;
+	for (int i = 0; i < roomJson[adress]["Choices"].size(); ++i) { choiceVector.push_back(roomJson[adress]["Choices"][i].asString()); }
+	std::vector<std::string> repercussionVector;
+	for (int i = 0; i < roomJson[adress]["Repercussions"].size(); ++i) { repercussionVector.push_back(roomJson[adress]["Repercussions"][i].asString()); }
+	std::vector<unsigned int> pointersVector;
+	for (int i = 0; i < roomJson[adress]["Pointers"].size(); ++i) { pointersVector.push_back(roomJson[adress]["Pointers"][i].asInt()); }
+
+	Room room(type, blurb, subject, background,
+		choiceVector, repercussionVector, pointersVector);
+	currentScene = room;
 }
 void SceneMgr::nextRoom()
 {
@@ -36,6 +80,25 @@ void SceneMgr::printCurrentScene()
 	currentScene.drawRoom(currentChoice);
 }
 
+void SceneMgr::initFirstRoom()
+{
+	/*DEBUG*/printf("--------- ROOMMGR: Accessing room adress %d\n",roomJson[0]["Adress"].asInt());
+	int type = roomJson[0]["Type"].asInt();
+	std::string blurb = roomJson[0]["Blurb"].asString();
+	std::string subject = roomJson[0]["Subject"].asString();
+	std::string background = roomJson[0]["Background"].asString();
+
+	std::vector<std::string> choiceVector;
+	for (int i = 0; i < roomJson[0]["Choices"].size(); ++i) { choiceVector.push_back(roomJson[0]["Choices"][i].asString()); }
+	std::vector<std::string> repercussionVector;
+	for (int i = 0; i < roomJson[0]["Repercussions"].size(); ++i) { repercussionVector.push_back(roomJson[0]["Repercussions"][i].asString()); }
+	std::vector<unsigned int> pointersVector;
+	for (int i = 0; i < roomJson[0]["Pointers"].size(); ++i) { pointersVector.push_back(roomJson[0]["Pointers"][i].asInt()); }
+
+	Room room(type, blurb, subject, background, 
+				choiceVector, repercussionVector, pointersVector);
+	currentScene = room;
+}
 
 void SceneMgr::highlightChoice(int highlighted, int totalChoices, Player player)
 {

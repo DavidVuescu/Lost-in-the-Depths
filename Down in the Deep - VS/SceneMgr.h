@@ -1,11 +1,13 @@
 #pragma once
-#include <map>
+#include <fstream>
 #include "Room.h"
 #include "Player.h"
 
 class SceneMgr
 {
-	std::map <int, Room> roomIndex;
+	std::ifstream roomFile;
+	Json::Value roomJson;
+	Json::Reader reader;
 
 public:
 	Room currentScene;
@@ -25,7 +27,8 @@ public:
 	void nextRoom();
 
 	void printCurrentScene();
-	void initRooms();
+	int getRoomAdress(int newRoom);
+	void initFirstRoom();
 
 	void highlightChoice(int highlighted, int totalChoices, Player player);
 

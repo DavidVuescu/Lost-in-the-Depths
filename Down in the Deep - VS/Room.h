@@ -5,6 +5,9 @@
 #include <string>
 #include <vector>
 
+#include "json/json.h"
+#include "json/forwards.h"
+
 class Room
 {
 

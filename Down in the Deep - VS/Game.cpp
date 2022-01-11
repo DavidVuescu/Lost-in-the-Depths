@@ -12,8 +12,7 @@ Game::Game(int width, int height, int FPS, std::string title)
 
 	SetTargetFPS(FPS);
 	InitWindow(width, height, title.c_str());
-	roomMgr.initRooms();
-	roomMgr.setCurrentRoom(settings::firstRoom);
+	roomMgr.initFirstRoom();
 	player.setSprite("Assets/Player/playerSprite.png");
 }
 Game::~Game() noexcept
