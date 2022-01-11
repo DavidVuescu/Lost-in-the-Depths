@@ -9,7 +9,8 @@
 enum States
 {
 	Cutscene, //Player sprite hidden, can skip (TBD)
-	Adventure //Player sprite active, can move up and down to choose
+	Adventure, //Player sprite active, can move up and down to choose
+	Paused //Game waits for player input
 };
 
 namespace settings
@@ -67,14 +68,14 @@ namespace settings
 	inline constexpr int textPosY = 70;
 
 
-
 	// Player Render
 	inline constexpr Rectangle shirtCoords1{ 0,0,16,16 };
 	inline constexpr Rectangle shirtCoords2{ 16,0,16,16 };
 	inline constexpr int /*dynamic*/playerPadding_Room = choiceHeight / 3;
-	// Player Variables
+
+
+	// Gameplay Settings
 	inline constexpr int firstRoom = 1;
-	inline constexpr int /*dynamic*/playerTravelDistance = choiceHeight + choicePadding;
 }
 
 #endif

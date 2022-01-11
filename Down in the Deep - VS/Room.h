@@ -5,6 +5,9 @@
 #include <string>
 #include <vector>
 
+#include "json/json.h"
+#include "json/forwards.h"
+
 class Room
 {
 
@@ -14,19 +17,23 @@ class Room
 	Texture2D roomSubject;
 	Texture2D roomBackground;
 
-	int roomChoiceNo;
+	bool isRoomFinished;
+
 	std::vector <std::string> choiceList;
 	std::vector <std::string> choiceResultList;
+	unsigned int roomChoiceNo;
+
+	std::vector <unsigned int> roomLinks; 
 
 
 public:
-	Room(int roomID, 
+	Room(int roomID,
 		 const std::string& roomText,
-		 const std::string& subjectPath, 
+		 const std::string& subjectPath,
 		 const std::string& backgroundPath,
-		 const int choiceNo, 
 		 const std::vector <std::string>& choiceList,
-		 const std::vector <std::string>& choiceResults);
+		 const std::vector <std::string>& choiceResults,
+		 const std::vector <unsigned int> roomLinks);
 	Room();
 	Room(const Room& other) = delete;
 	Room& operator = (const Room& other);
@@ -35,12 +42,15 @@ public:
 
 	const int getRoomID();
 	int getChoiceNo();
+	void setRoomFinishState(bool roomFinishState);
+	bool getRoomFinishState();
+	unsigned int fetchNextRoom(int index);
 
 
 	// Room Drawing Functions
-	void drawRoom();// Master
-	void drawRoomStory();// Textbox & Choices
-	void roomTextWriter();
+	void drawRoom(int userChoice);// Master
+	void drawRoomStory(int boxNumber);// Textbox & Choices
+	void roomTextWriter(std::string textIn);
 
 
 

@@ -6,6 +6,8 @@
 #define SHADE		CLITERAL(Color){ 0, 0, 0, 100 }
 #define HOLLOWBRICK	CLITERAL(Color){ 63,68, 70, 70 }
 #define DARKLIGHT	CLITERAL(Color){ 23, 18, 19, 60 }
+#define MONSOON		CLITERAL(Color){ 140, 124, 140, 80 }
+
 
 namespace daveLib
 {
