@@ -2,7 +2,6 @@
 #include <raylib.h>
 #include "Game.h"
 #include "Room.h"
-#include "InitRooms.h"
 
 Game::Game(int width, int height, int FPS, std::string title)
 	:

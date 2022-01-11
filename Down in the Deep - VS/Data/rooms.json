@@ -50,15 +50,125 @@
         "Torches are overrated"
       ],
       "Repercussions": [
-        "You nibbed the torch. Right as you nibbed the torch you realised this is a prerelease demo and immediately got out of the cave with your newfound torch. You kept it as a token until the day you died\n\n...or at least until the dev releases the next update",
+        "You nibbed the torch and continued going ahead",
         "How dare you, torches are perfectly well rated... well anyway, you didn't see anything, so you tripped and fell and died, how unfortunate."
       ],
       "Pointers": [
-        888,
+        5,
         999
       ]
     },
 
+    {
+      "Adress": 5,
+      "Type": 1,
+      "Blurb": "You seem to have found yourself a spider den. The webs are quite icky and you feel as if you can't continue if you don't do something",
+      "Subject": "Assets/Subjects/Web.png",
+      "Background": "Assets/Backgrounds/Depths.png",
+      "Choices": [
+        "Burn the spider webs"
+      ],
+      "Repercussions": [
+        "Using your trusty newfound torch you decided to burn the webs. None shall stand in your wa-\nYou suddenly hear a voice in the distance"
+      ],
+      "Pointers": [
+        8
+      ]
+    },
+
+    {
+      "Adress": 8,
+      "Type": 1,
+      "Blurb": "A giant spider stands before you, talking to you.. you surely are going insane now. \"Please, don't burn it, I can help you, I know the way out. Please don't, I have a family, sir\". The spider's voice becomes weak as it weeps.",
+      "Subject": "Assets/Subjects/Spider.png",
+      "Background": "Assets/Backgrounds/Depths.png",
+      "Choices": [
+        "Burn the spider webs",
+        "Agree to get the spider's help"
+      ],
+      "Repercussions": [
+        "You burned the spider den, watching the spider's eyes shrink in the flames. In the distance you can hear the wails of children. You feel your sins crawling on your back",
+        "\"You shan't regret this sir, I promise, I promise\". The spider grabbed your hand and dragged you through its den, you couldn't see what was happening but for a dim light, growing bigger and bigger"
+      ],
+      "Pointers": [
+        9,
+        888
+      ]
+    },
+
+    {
+      "Adress": 9,
+      "Type": 1,
+      "Blurb": "You feel bad about what you have done, your stomach turns when you look back at your actions",
+      "Subject": "",
+      "Background": "Assets/Backgrounds/Depths.png",
+      "Choices": [
+        "Thrudge on",
+        "What have I done"
+      ],
+      "Repercussions": [
+        "...",
+        "Maybe there's hope for you still"
+      ],
+      "Pointers": [
+        11,
+        42
+      ]
+    },
+
+    {
+      "Adress": 11,
+      "Type": 1,
+      "Blurb": "Are you sure you don't feel bad?",
+      "Subject": "",
+      "Background": "Assets/Backgrounds/Depths.png",
+      "Choices": [
+        "Thrudge on",
+        "Maybe I do"
+      ],
+      "Repercussions": [
+        "...",
+        "Maybe there's hope for you still"
+      ],
+      "Pointers": [
+        998,
+        42
+      ]
+    },
+
+    {
+      "Adress": 42,
+      "Type": 1,
+      "Blurb": "You see a small light at the end of a tunnel you decided to walk in in your moral distress",
+      "Subject": "",
+      "Background": "Assets/Backgrounds/Light.png",
+      "Choices": [
+        "Follow the light"
+      ],
+      "Repercussions": [
+        "Don't you know it's bad to follow little lights at the ends of tunnels?"
+      ],
+      "Pointers": [
+        888
+      ]
+    },
+
+    {
+      "Adress": 998,
+      "Type": 1,
+      "Blurb": "You're a monster",
+      "Subject": "",
+      "Background": "Assets/Backgrounds/Depths.png",
+      "Choices": [
+        "Thrudge on"
+      ],
+      "Repercussions": [
+        "..."
+      ],
+      "Pointers": [
+        999
+      ]
+    },
 
 
     {
